@@ -41,3 +41,10 @@ Pictures/
 mkl-dnn/
 tensorflow/
 testdir/
+.bashrc-anaconda3.bak
+.conda/
+.ipython/
+.tensorflow/
+Workspace/
+benchmark.txt
+check.py

@@ -131,3 +131,6 @@ LC_CTYPE=en_US.UTF-8
 #to set CUDA_PATH
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:/usr/local/lib/:/usr/local/include/:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# added by Anaconda3 4.1.1 installer
+export PATH="/home/gopi/Workspace/anaconda3/bin:$PATH"

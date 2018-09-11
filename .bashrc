@@ -10,14 +10,14 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+#HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+#shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+#HISTSIZE=1000
+#HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -116,21 +116,38 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#for bash powerline
-if [ -f /usr/local/lib/python3.5/dist-packages/powerline/bindings/bash/powerline.sh ]; then
-    source /usr/local/lib/python3.5/dist-packages/powerline/bindings/bash/powerline.sh
-fi
+# added by Anaconda3 4.2.0 installer
+export PATH="/home/gopi34/Workspace/anaconda3/bin:$PATH"
 
-#for 256 color support
-export TERM=xterm-256color
+# added by Gopi on 30/08/2018 15:20 to complete cuda installation. 
+	## appended #/usr/local/cuda/extras/CUPTI/lib64 on 04/09/2018 10:30 to keep things simple, 
+	### actual line was #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+	## appended #/usr/local/nccl-2.2 on 04/09/2018 10:33 for the same reason above,
+	### actual line was #LD_LIBRARY_PATH=/usr/local/nccl-2.2${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ 
+export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nccl-2.2${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-#for LC locale
+# added by Gopi on 03/09/2018 13:26 to install Tensorflow from sources
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+
+# added by Gopi on 03/09/2018 23:05 to install nccl-2.2
+#LD_LIBRARY_PATH=/usr/local/nccl-2.2${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# added by Gopi on 04/09/2018 10:39 to set tmux as default when he login
+#if command -v tmux>/dev/null; then
+#  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+#fi
+
+# added by Gopi on 04/09/2018 14:04 to handle bash histories across different terminals
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+shopt -s histappend                      # append to history, don't overwrite it
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# added by Gopi on 11/08/2018 10:42 to set LC_ALL for LC locale
 LC_ALL=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
-
-#to set CUDA_PATH
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:/usr/local/lib/:/usr/local/include/:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-# added by Anaconda3 4.1.1 installer
-export PATH="/home/gopi/Workspace/anaconda3/bin:$PATH"
